@@ -1,6 +1,6 @@
 const express = require('express');
 const toDoRouter = express.Router();
-// const pool = require('./routes/toDO.js');---------< connect 
+const pool = require('../modules/pool.js');
 // DB CONNECTION
 //we put this in modules --> pool.js
 
@@ -20,27 +20,48 @@ toDoRouter.get('/', (req, res) => {
             res.sendStatus(500)
         })
 })
-module.exports = toDoRouter;
+
 // POST
-// toDoRouter.post('/', (req, res) => {
-//     console.log(req.body)
+toDoRouter.post('/', (req, res) => {
+    console.log(req.body)
+
+    let queryText = `
+INSERT INTO tasks ("complete", "task")
+VALUES ($1, $2);
+`
+    let values = [req.body.complete, req.body.task];
+    pool.query(queryText, values).then(result => {
+
+        console.log('added values', result.rows);
+    }).then((response) => {
+        res.sendStatus(201);
+    }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+    })
+});
+
+// PUT
+// koalaRouter.put('/:id', (req, res) => {
+//     let id = req.params.id;
+//     console.log(id);
 
 //     let queryText = `
-// INSERT INTO tasks ("complete", "task")
-// VALUES ($1, $2);
-// `
-//     let values = [req.body.complete, req.body.task];
-//     pool.query(queryText, values).then(result => {
+//     UPDATE "koalas"
+//     SET "ready_to_transfer" = true
+//     WHERE "id" = $1
+//     `
 
-//         console.log('added values', result.rows);
-//     }).then((response) => {
-//         res.sendStatus(201);
-//     }).catch((err) => {
+//     let values = [id];
+
+//     pool.query(queryText, values).then(result => {
+//         res.sendStatus(200);
+//     }).catch(err => {
 //         console.log(err);
 //         res.sendStatus(500);
 //     })
+    
 // });
-
 
 
 // DELETE

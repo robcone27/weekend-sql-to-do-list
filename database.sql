@@ -4,9 +4,11 @@ CREATE TABLE "tasks" (
 	"task" VARCHAR(300)
 	);
 
-    
-INSERT INTO tasks ("complete", "task")
-	VALUES (TRUE, 'take out the garbage'),
+
+INSERT INTO "tasks"
+ ("complete", "task")
+	VALUES 
+    (TRUE, 'take out the garbage'),
 	(FALSE, 'clean up dog poop');
 
 	
