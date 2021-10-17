@@ -1,3 +1,6 @@
 .finished {
     background-color: chartreuse;
 }
+ body {
+     background-color: gray;
+ }
