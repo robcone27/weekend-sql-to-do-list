@@ -65,5 +65,24 @@ toDoRouter.put('/:id', (req, res) => {
 
 
 // DELETE
+toDoRouter.delete('/:id', (req, res) => {
+    let id = req.params.id;
+    console.log(id);
+
+    let queryText = `
+    DELETE FROM "tasks"
+    WHERE "id" = $1;
+    `;
+
+    let values = [id];
+
+    pool.query(queryText, values).then(result => {
+        res.sendStatus(200);
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
+    
+});
 
 module.exports = toDoRouter;
