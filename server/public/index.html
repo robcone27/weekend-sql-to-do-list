@@ -17,22 +17,26 @@
     <h2>Add Task</h2>
     <input type="text" id="taskTxt" value="" placeholder="Enter Your Task">
     <button type="button" id="taskSubmit">Add Task</button>
-    <select name="Complete" id="completeSubmit">task complete</select>
+    <select name="Complete" id="completeSubmit">
+        <option hidden="hidden">Complete?</option>
+        <option value="false">No</option>
+        <option value="true">Yes</option>
+    </select>
     </section>
     <table>
         <thead>
             <tr>
-                <th>complete</th>
-                <th>task</th>
+                <th>Task</th>
+                <th>Complete</th>
             </tr>
         </thead>
-        <tbody id="viewKoalas">
+        <tbody id="viewTasks">
             <td>yeah yeah yeah yeah </td>
         </tbody>
     </table>
 
 
-    <div class="taskAtHand">
+    <!-- <div class="taskAtHand">
         <h3 class="completeTxt">complete</h3>
         <h4 class="toDoNotes">i went to the sotre and get some groceries</h4>
         <button type="button" id="deleteTask">Delete</button>
@@ -46,4 +50,4 @@
     </div>
 </body>
 
-</html>
+</html> -->

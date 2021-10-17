@@ -9,19 +9,21 @@ function onReady() {
 // click listeners
 function clickListeners() {
     $(`#taskSubmit`).on(`click`, function () {
-        let taskSend = {
+        let taskToSend = {
             task: $(`#taskTxt`).val(),
             complete: $(`#completeSubmit`).val()
         };
         sendTasks(taskToSend);
     });
+   
+    $(`#viewTasks`).on(`click`, `.completeBtn`, taskComplete );
 }; //end clickListeners
 
 // client side GET
 function getTask() {
     $.ajax({
         method: `GET`,
-        url: `/to_do_list`
+        url: `/tasks`
     }).then(function (response) {
         console.log('in client side GET');
         renderTasks(response);
@@ -35,13 +37,51 @@ function getTask() {
 function sendTasks(newTask) {
     $.ajax({
         method: `POST`,
-        url: `/to_do_list`,
+        url: `/tasks`,
         data: newTask
     }).then(function (response) {
         console.log('in client side POST');
-        getTasks(response);
+        getTask(response);
     }).catch(function (error) {
         console.log('error on client side POST', error);
         alert('failed to add task');
     });
 }
+
+//Renders to the DOM
+function renderTasks(tasks) {
+    $(`#viewTasks`).empty();
+    for (let i = 0; i < tasks.length; i++) {
+
+        let taskEntry = (`
+        <tr data-id="${tasks[i].id}">
+        <td>${tasks[i].task}</td>
+        <td>${tasks[i].complete}</td>
+        <td>
+        <button class="completeBtn">Complete</button>
+        <button class="deleteBtn">Delete</button>
+           </td>
+        </tr>
+        `);
+        $(`#viewTasks`).append(taskEntry)
+    };
+};
+
+//client side PUT
+function taskComplete() {
+    let complete = $(this).text();
+    let id = $(this).closest(`tr`).data(`id`);
+    console.log(id, complete);
+
+    $.ajax({
+        method: `PUT`,
+        url: `/tasks/${id}`,
+        data: {
+            complete: complete
+        }
+    }).then(function (response) {
+        getTask();
+    }).catch(function (error) {
+        console.log('something is funky', error);
+    });
+};
