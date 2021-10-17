@@ -1,0 +1,19 @@
+body{
+    background-color: aqua;
+}
+
+.toDoNotes{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.completeTxt{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.taskAtHand{
+    background-color: red;
+}
+.taskAtHan{
+    background-color: burlywood;
+}

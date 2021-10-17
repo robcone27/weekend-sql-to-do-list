@@ -42,26 +42,26 @@ VALUES ($1, $2);
 });
 
 // PUT
-// koalaRouter.put('/:id', (req, res) => {
-//     let id = req.params.id;
-//     console.log(id);
+toDoRouter.put('/:id', (req, res) => {
+    let id = req.params.id;
+    console.log(id);
 
-//     let queryText = `
-//     UPDATE "koalas"
-//     SET "ready_to_transfer" = true
-//     WHERE "id" = $1
-//     `
+    let queryText = `
+    UPDATE "tasks"
+    SET "complete" = true
+    WHERE "id" = $1
+    `
 
-//     let values = [id];
+    let values = [id];
 
-//     pool.query(queryText, values).then(result => {
-//         res.sendStatus(200);
-//     }).catch(err => {
-//         console.log(err);
-//         res.sendStatus(500);
-//     })
+    pool.query(queryText, values).then(result => {
+        res.sendStatus(200);
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
     
-// });
+});
 
 
 // DELETE
